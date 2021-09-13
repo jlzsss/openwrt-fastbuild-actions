@@ -158,8 +158,10 @@ prepare_dirs() {
   sudo chmod 777 "${HOST_TMP_DIR}"
 }
 
-cp -rf ${BUILDER_KEY_BUILD} ${OPENWRT_COMPILE_DIR}
-cp -rf ${BUILDER_KEY_BUILD_PUB} ${OPENWRT_COMPILE_DIR}
+copy_key() {
+cp -rf /home/builder/key-build /home/builder/openwrt/key-build
+cp -rf /home/builder/key-build.pub /home/builder/openwrt/key-build.pub
+}
 
 main() {
   set -eo pipefail
@@ -176,6 +178,7 @@ main() {
   update_builder_info
   check_validity
   prepare_dirs
+  copy_key
 }
 
 if [ "x$1" = "xmain" ]; then
