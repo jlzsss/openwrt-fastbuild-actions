@@ -51,6 +51,9 @@ link_key() {
     echo "::error::'${KEY_BUILD_MOUNT_POINT_PUB}' not mounted!" >&2
     exit 1
   fi
+  
+  cp -rf ${BUILDER_KEY_BUILD} ${KEY_BUILD}
+  cp -rf ${BUILDER_KEY_BUILD_PUB} ${KEY_BUILD_PUB}
 }
 
 if [ -z "${OPENWRT_COMPILE_DIR}" ] || [ -z "${OPENWRT_CUR_DIR}" ] || [ -z "${OPENWRT_SOURCE_DIR}" ]; then
