@@ -14,16 +14,21 @@ env:
   SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
   TMATE_ENCRYPT_PASSWORD: ${{secrets.TMATE_ENCRYPT_PASSWORD}}
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  OPT_PUSH_WHEN_FAIL: 0
+  OPT_PACKAGE_ONLY: 0
+  OPT_ALL_PACKAGES: 0
   OPT_UPDATE_FEEDS: 1
-
+  OPT_UPDATE_REPO: 1
+  OPT_REBUILD: 1
+  OPT_DEBUG: 0
+  
 name: Build OpenWrt
 
 on:
   deployment:
   repository_dispatch:
   workflow_dispatch:
-    env:
-      OPT_DEBUG: 1
+
   push:
     paths:
     - 'user/**'
@@ -36,7 +41,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     # For `github.event`'s structure, see: https://developer.github.com/v3/activity/events/types/
     # Do not modify the trigger methods here, customize them in the `on` section
     if: |
@@ -56,12 +61,8 @@ jobs:
         # ########### Add your target name below ###########
         # E.g. target: [x86_64, wdr4310v1]
         target:
-          - 19.07.7
-          - 19.07.8
-          - 21.02.0--dgnwg05lm
-          - 21.02.0--zhwg11lm
-          - snapshot--dgnwg05lm
-          - snapshot--zhwg11lm
+          - x86_64
+
         include:
         - mode: normal
           title: Build
@@ -74,10 +75,11 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@main
       with:
-        fetch-depth: 0
-
+         ref: master
+         fetch-depth: 0
+         
     - name: Init build env
       run: scripts/cisteps/build-openwrt/01-init_env.sh
 
@@ -107,11 +109,11 @@ jobs:
       if: env.SKIP_TARGET == '0'
       run: scripts/cisteps/build-openwrt/05-check_builders.sh
 
-    - name: '[Debug] Wait for SSH connection (timeout 5min)'
-      if: env.SKIP_TARGET == '0' && env.OPT_DEBUG == '1' && env.TEST != '1'
-      env:
-        TIMEOUT_MIN: 5
-      uses: tete1030/safe-debugger-action@dev
+#    - name: '[Debug] Wait for SSH connection (timeout 5min)'
+#      if: env.SKIP_TARGET == '0' && env.OPT_DEBUG == '1' && env.TEST != '1'
+#      env:
+#        TIMEOUT_MIN: 5
+#      uses: tete1030/safe-debugger-action@dev
 
     - name: 'Get key-build'
       run: 'echo "$OPENWRT_BUILD_KEY" > $HOST_WORK_DIR/key-build;echo "$OPENWRT_BUILD_KEY_PUB" > $HOST_WORK_DIR/key-build.pub'
@@ -148,20 +150,19 @@ jobs:
     - name: Download packages
       if: env.SKIP_TARGET == '0'
       run: scripts/cisteps/build-openwrt/10-download_packages.sh
-
+            
     - name: Print disk space
       if: env.SKIP_TARGET == '0'
       run: df -h
-
+      
     - name: Compile firmware and packages with multiple threads
       id: mtcompile
       if: env.SKIP_TARGET == '0'
-      continue-on-error: true
       run: scripts/cisteps/build-openwrt/11-compile_multi.sh
 
     - name: Compile firmware and packages with single threads when failed
       id: stcompile
-      if: env.SKIP_TARGET == '0' && steps.mtcompile.outputs.started == '1' && steps.mtcompile.outputs.status != 'success'
+      if: failure() && env.SKIP_TARGET == '0'
       run: scripts/cisteps/build-openwrt/12-compile_single.sh
 
     - name: Print disk space
@@ -177,12 +178,12 @@ jobs:
         TMATE_DOCKER_CONTAINER: ${{env.BUILDER_CONTAINER_ID}}
       uses: tete1030/safe-debugger-action@dev
 
-    # - name: Upload bin directory
-    #   uses: actions/upload-artifact@master
-    #   if: env.SKIP_TARGET == '0' && !cancelled()
-    #   with:
-    #     name: OpenWrt_bin_${{env.BUILD_TARGET}}
-    #     path: ${{env.HOST_BIN_DIR}}
+    - name: Upload bin directory
+      uses: actions/upload-artifact@master
+      if: env.SKIP_TARGET == '0' && !cancelled()
+      with:
+        name: OpenWrt_bin_${{env.BUILD_TARGET}}
+        path: ${{env.HOST_BIN_DIR}}
 
     - name: Organize files
       id: organize
@@ -204,7 +205,7 @@ jobs:
         path: ${{env.HOST_BIN_DIR}}
 
     - name: Checkout tools repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@main
       if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled()
       with:
         repository: openlumi/releases
