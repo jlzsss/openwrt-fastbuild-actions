@@ -52,8 +52,8 @@ link_key() {
     exit 1
   fi
   
-  cp -rf ${BUILDER_KEY_BUILD} ${KEY_BUILD}
-  cp -rf ${BUILDER_KEY_BUILD_PUB} ${KEY_BUILD_PUB}
+  cp -rf ${BUILDER_KEY_BUILD} ${OPENWRT_COMPILE_DIR}
+  cp -rf ${BUILDER_KEY_BUILD_PUB} ${OPENWRT_COMPILE_DIR}
 }
 
 if [ -z "${OPENWRT_COMPILE_DIR}" ] || [ -z "${OPENWRT_CUR_DIR}" ] || [ -z "${OPENWRT_SOURCE_DIR}" ]; then
