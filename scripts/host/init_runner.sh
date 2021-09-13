@@ -12,16 +12,16 @@ install_commands() {
 
 setup_envs() {
   # Do not change
-  BUILDER_IMAGE_ID_BUILDENV="tete1030/openwrt-buildenv:latest"
+  BUILDER_IMAGE_ID_BUILDENV="jlzsss/openwrt-buildenv:latest"
   BUILDER_CONTAINER_ID="builder"
   BUILDER_WORK_DIR="/home/builder"
   BUILDER_TMP_DIR="/tmp/builder"
   HOST_TMP_DIR="/tmp/builder"
   BUILDER_BIN_DIR="${BUILDER_WORK_DIR}/openwrt_bin"
   HOST_BIN_DIR="${HOST_WORK_DIR}/openwrt_bin"
-  BUILDER_KEY_BUILD="${BUILDER_WORK_DIR}/key-build"
+  BUILDER_KEY_BUILD="${BUILDER_WORK_DIR}/openwrt/key-build"
   HOST_KEY_BUILD="${HOST_WORK_DIR}/key-build"
-  BUILDER_KEY_BUILD_PUB="${BUILDER_WORK_DIR}/key-build.pub"
+  BUILDER_KEY_BUILD_PUB="${BUILDER_WORK_DIR}/openwrt/key-build.pub"
   HOST_KEY_BUILD_PUB="${HOST_WORK_DIR}/key-build.pub"
   BUILDER_PROFILE_DIR="${BUILDER_WORK_DIR}/user/current"
   BUILDER_MOUNT_OPTS="
@@ -103,6 +103,7 @@ prepare_target() {
   fi
 
   # Load settings
+  export FORCE=1
   NECESSARY_SETTING_VARS=( BUILDER_NAME BUILDER_TAG REPO_URL REPO_BRANCH )
   OPT_UPLOAD_CONFIG='1'
   SETTING_VARS=( "${NECESSARY_SETTING_VARS[@]}" OPT_UPLOAD_CONFIG )
@@ -115,7 +116,7 @@ prepare_target() {
   fi
   _set_env "${SETTING_VARS[@]}"
   append_docker_exec_env "${SETTING_VARS[@]}"
-  _set_env DK_EXEC_ENVS
+  _set_env DK_EXEC_ENVS FORCE
 }
 
 # Load building options
