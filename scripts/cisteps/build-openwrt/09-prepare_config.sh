@@ -11,6 +11,3 @@ if [ "x${OPT_UPLOAD_CONFIG}" = "x1" ] && [ "x${TEST}" != "x1" ]; then
   TERMBIN_URL="$( docker_exec -w "${OPENWRT_CUR_DIR}" "${BUILDER_CONTAINER_ID}" "${OPENWRT_CUR_DIR}/scripts/diffconfig.sh" | nc termbin.com 9999 | tr -d '\0')"
   echo "Your config.diff can be downloaded at: ${TERMBIN_URL}"
 fi
-
-cp -rf /home/builder/key-build /home/builder/openwrt/key-build
-cp -rf /home/builder/key-build.pub /home/builder/openwrt/key-build.pub
