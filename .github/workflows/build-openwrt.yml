@@ -20,6 +20,7 @@ env:
   OPT_UPDATE_FEEDS: 1
   OPT_UPDATE_REPO: 1
   OPT_REBUILD: 1
+  OPT_REBASE: 0
   OPT_DEBUG: 0
   
 name: Build OpenWrt
