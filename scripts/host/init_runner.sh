@@ -39,8 +39,8 @@ setup_envs() {
   OPENWRT_CUR_DIR="${OPENWRT_COMPILE_DIR}"
   
   BUILDER_MOUNT_OPTS_OP="
-    -v '${HOST_KEY_BUILD}:${OPENWRT_COMPILE_DIR}/key-build'
-    -v '${HOST_KEY_BUILD_PUB}:${OPENWRT_COMPILE_DIR}/key-build.pub'
+    -v '${BUILDER_KEY_BUILD}:${OPENWRT_COMPILE_DIR}/key-build'
+    -v '${BUILDER_KEY_BUILD_PUB}:${OPENWRT_COMPILE_DIR}/key-build.pub'
   "
   
   # shellcheck disable=SC1090
