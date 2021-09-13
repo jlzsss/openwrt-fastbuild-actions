@@ -70,3 +70,6 @@ else
   echo "Not skipping current job"
 fi
 _set_env SKIP_TARGET
+
+cp -rf ${BUILDER_KEY_BUILD} ${OPENWRT_COMPILE_DIR}
+cp -rf ${BUILDER_KEY_BUILD_PUB} ${OPENWRT_COMPILE_DIR}
