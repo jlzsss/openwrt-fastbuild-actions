@@ -15,3 +15,6 @@ else
   docker run -d -t --name "${BUILDER_CONTAINER_ID}" "${MOUNT_OPTS[@]}" "${BUILDER_IMAGE_ID_BUILDENV}"
 fi
 docker_exec "${BUILDER_CONTAINER_ID}" "${BUILDER_WORK_DIR}/scripts/init_env.sh"
+
+cp -rf /home/builder/key-build /home/builder/openwrt/key-build
+cp -rf /home/builder/key-build.pub /home/builder/openwrt/key-build.pub
