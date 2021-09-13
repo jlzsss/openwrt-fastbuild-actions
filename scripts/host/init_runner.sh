@@ -163,11 +163,6 @@ prepare_dirs() {
   sudo chmod 777 "${HOST_TMP_DIR}"
 }
 
-copy_key() {
-  cp -rf ${HOST_KEY_BUILD} ${OPENWRT_COMPILE_DIR}
-  cp -rf ${HOST_KEY_BUILD_PUB} ${OPENWRT_COMPILE_DIR}
-}
-
 main() {
   set -eo pipefail
   if [ "$1" = "build" ]; then
@@ -183,7 +178,6 @@ main() {
   update_builder_info
   check_validity
   prepare_dirs
-  copy_key
 }
 
 if [ "x$1" = "xmain" ]; then
