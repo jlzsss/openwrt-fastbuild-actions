@@ -21,5 +21,5 @@ if [ "x${OPT_ALL_PACKAGES}" == "x1" ]; then
   sed -i '1 i\CONFIG_ALL=y' .config
 fi
 
+echo -e 'CONFIG_DEVEL=y\nCONFIG_CCACHE=y' >> .config
 make defconfig
-make oldconfig
