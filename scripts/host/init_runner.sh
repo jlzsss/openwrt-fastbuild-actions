@@ -156,10 +156,9 @@ prepare_dirs() {
   chmod 777 "${HOST_BIN_DIR}"
   sudo mkdir "${HOST_TMP_DIR}"
   sudo chmod 777 "${HOST_TMP_DIR}"
+  cp -rf ${BUILDER_KEY_BUILD} ${OPENWRT_COMPILE_DIR}
+  cp -rf ${BUILDER_KEY_BUILD_PUB} ${OPENWRT_COMPILE_DIR}
 }
-
-cp -rf ${BUILDER_KEY_BUILD} ${OPENWRT_COMPILE_DIR}
-cp -rf ${BUILDER_KEY_BUILD_PUB} ${OPENWRT_COMPILE_DIR}
 
 main() {
   set -eo pipefail
