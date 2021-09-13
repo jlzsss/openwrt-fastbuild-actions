@@ -19,9 +19,9 @@ setup_envs() {
   HOST_TMP_DIR="/tmp/builder"
   BUILDER_BIN_DIR="${BUILDER_WORK_DIR}/openwrt_bin"
   HOST_BIN_DIR="${HOST_WORK_DIR}/openwrt_bin"
-  BUILDER_KEY_BUILD="/home/builder/openwrt/key-build"
+  BUILDER_KEY_BUILD="${BUILDER_WORK_DIR}/key-build"
   HOST_KEY_BUILD="${HOST_WORK_DIR}/key-build"
-  BUILDER_KEY_BUILD_PUB="/home/builder/openwrt/key-build.pub"
+  BUILDER_KEY_BUILD_PUB="${BUILDER_WORK_DIR}/key-build.pub"
   HOST_KEY_BUILD_PUB="${HOST_WORK_DIR}/key-build.pub"
   BUILDER_PROFILE_DIR="${BUILDER_WORK_DIR}/user/current"
   BUILDER_MOUNT_OPTS="
@@ -35,7 +35,10 @@ setup_envs() {
   OPENWRT_COMPILE_DIR="${BUILDER_WORK_DIR}/openwrt"
   OPENWRT_SOURCE_DIR="${BUILDER_TMP_DIR}/openwrt"
   OPENWRT_CUR_DIR="${OPENWRT_COMPILE_DIR}"
-
+  
+  cp -rf ${BUILDER_KEY_BUILD} ${OPENWRT_COMPILE_DIR}
+  cp -rf ${BUILDER_KEY_BUILD_PUB} ${OPENWRT_COMPILE_DIR}
+  
   # shellcheck disable=SC1090
   source "${HOST_WORK_DIR}/scripts/host/docker.sh"
   # shellcheck disable=SC1090
