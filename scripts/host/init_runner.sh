@@ -35,10 +35,7 @@ setup_envs() {
   OPENWRT_COMPILE_DIR="${BUILDER_WORK_DIR}/openwrt"
   OPENWRT_SOURCE_DIR="${BUILDER_TMP_DIR}/openwrt"
   OPENWRT_CUR_DIR="${OPENWRT_COMPILE_DIR}"
-  
-  cp -rf ${BUILDER_KEY_BUILD} ${OPENWRT_COMPILE_DIR}
-  cp -rf ${BUILDER_KEY_BUILD_PUB} ${OPENWRT_COMPILE_DIR}
-  
+    
   # shellcheck disable=SC1090
   source "${HOST_WORK_DIR}/scripts/host/docker.sh"
   # shellcheck disable=SC1090
