@@ -17,7 +17,7 @@ link_bin() {
     if [[ ! -L "${BIN_DIR}" || ! -d "${BIN_DIR}" || "$(readlink "${BIN_DIR}")" != "${BIN_MOUNT_POINT}" ]]; then
       echo "'bin' link does not exist, creating"
       rm -rf "${BIN_DIR}" || true
- #    ln -sf "${BIN_MOUNT_POINT}" "${BIN_DIR}"
+      ln -sf "${BIN_MOUNT_POINT}" "${BIN_DIR}"
     fi
   else
     echo "::error::'${BIN_MOUNT_POINT}' not mounted!" >&2
