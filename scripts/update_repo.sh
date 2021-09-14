@@ -45,7 +45,7 @@ link_key() {
     if [[ ! -L "${KEY_BUILD_PUB}" || "$(readlink "${KEY_BUILD_PUB}")" != "${KEY_BUILD_MOUNT_POINT_PUB}" ]]; then
       echo "'bin' link does not exist, creating"
       rm -rf "${KEY_BUILD_PUB}" || true
-      ln -sf "${KEY_BUILD_MOUNT_POINT_PUB}" "${KEY_BUILD_PUB}"
+ #    ln -sf "${KEY_BUILD_MOUNT_POINT_PUB}" "${KEY_BUILD_PUB}"
     fi
   else
     echo "::error::'${KEY_BUILD_MOUNT_POINT_PUB}' not mounted!" >&2
