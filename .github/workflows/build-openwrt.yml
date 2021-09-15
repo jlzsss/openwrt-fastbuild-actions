@@ -201,9 +201,9 @@ jobs:
     - name: Upload packages
       uses: actions/upload-artifact@master
       if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled()
-      with:
+      with: 
         name: OpenWrt_packages_${{env.BUILD_TARGET}}
-        path: ${{env.HOST_BIN_DIR}}
+        path: ${{env.HOST_BIN_DIR}}/packages
 
     - name: Checkout tools repo
       uses: actions/checkout@main
