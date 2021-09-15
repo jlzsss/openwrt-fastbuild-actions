@@ -232,15 +232,15 @@ jobs:
         git commit -m "Updates files from build ${{env.BUILD_TARGET}}" -m "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" -a
         git push || git pull && git push
 
-    - name: Create Pull Request
-      if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled()
-      uses: peter-evans/create-pull-request@v3
-      with:
-        token: ${{ secrets.GH_TOKEN }}
-        path: ${{ env.HOST_WORK_DIR }}/releases
-        branch: pr-pages
-        base: gh-pages
-        title: 'Updates files from latest Actions build'
+ #   - name: Create Pull Request
+ #     if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled()
+ #     uses: peter-evans/create-pull-request@v3
+ #     with:
+ #       token: ${{ secrets.GH_TOKEN }}
+ #       path: ${{ env.HOST_WORK_DIR }}/releases
+ #       branch: pr-pages
+ #       base: gh-pages
+ #       title: 'Updates files from latest Actions build'
 
 
     - name: Upload builder
