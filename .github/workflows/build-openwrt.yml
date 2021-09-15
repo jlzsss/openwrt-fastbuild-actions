@@ -224,9 +224,9 @@ jobs:
     - name: Commit files
       if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled()
       run: |
-        cd ${{ env.HOST_WORK_DIR }}/releases/x86_64/packages
+        cd ${{ env.HOST_WORK_DIR }}/releases/x86_64
         git status
-        git add -A
+        git add packages
         git config --local user.email "jlz19821031@gmail.com"
         git config --local user.name "jlzsss"
         git commit -m "Updates files from build ${{env.BUILD_TARGET}}" -m "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" -a
