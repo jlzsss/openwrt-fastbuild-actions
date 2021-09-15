@@ -15,7 +15,7 @@
 # mentohust https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk.git
 # luci-app-mentohust https://github.com/BoringCat/luci-app-mentohust.git ref=1db86057
 # syslog-ng https://github.com/openwrt/packages.git ref=master root=feeds/packages/admin subdir=admin/syslog-ng override
-
+ 
 # luci-app-kcptun https://github.com/kuoruan/luci-app-kcptun.git
 # kcptun https://github.com/kuoruan/openwrt-kcptun.git
 # miredo https://github.com/jlzsss/openwrt-miredo.git
