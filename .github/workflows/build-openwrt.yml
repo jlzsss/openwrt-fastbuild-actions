@@ -209,7 +209,7 @@ jobs:
       uses: actions/checkout@main
       if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        repository: openlumi/releases
+        repository: jlzsss/releases
         path: ${{ env.HOST_WORK_DIR }}/releases
         ref: gh-pages
         token:  ${{ secrets.GH_TOKEN }}
