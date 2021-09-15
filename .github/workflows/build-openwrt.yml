@@ -227,8 +227,8 @@ jobs:
         cd ${{ env.HOST_WORK_DIR }}/releases
         git status
         git add -A
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "jlz19821031@gmail.com"
+        git config --local user.name "jlzsss"
         git commit -m "Updates files from build ${{env.BUILD_TARGET}}" -m "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" -a
         git push || git pull && git push
 
