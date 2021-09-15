@@ -224,7 +224,7 @@ jobs:
     - name: Commit files
       if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled()
       run: |
-        cd ${{ env.HOST_WORK_DIR }}/releases
+        cd ${{ env.HOST_WORK_DIR }}/releases/packages
         git status
         git add -A
         git config --local user.email "jlz19821031@gmail.com"
