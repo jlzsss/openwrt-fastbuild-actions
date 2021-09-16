@@ -16,27 +16,27 @@
 # luci-app-mentohust https://github.com/BoringCat/luci-app-mentohust.git ref=1db86057
 # syslog-ng https://github.com/openwrt/packages.git ref=master root=feeds/packages/admin subdir=admin/syslog-ng override
 
-# luci-app-kcptun https://github.com/kuoruan/luci-app-kcptun.git
-# kcptun https://github.com/kuoruan/openwrt-kcptun.git
-# miredo https://github.com/jlzsss/openwrt-miredo.git
-# mwol https://github.com/Mleaf/openwrt-mwol.git
-# luci-app-xray https://github.com/yichya/luci-app-xray.git
-# openwrt-xray https://github.com/yichya/openwrt-xray.git
-# luci-app-v2ray https://github.com/jlzsss/luci-app-v2ray.git ref=legacy
-# luci-app-trojan https://github.com/frainzy1477/luci-app-trojan.git
-# luci-app-clash https://github.com/frainzy1477/luci-app-clash.git ref=test
-# luci-app-koolproxyR https://github.com/project-openwrt/luci-app-koolproxyR.git
+luci-app-kcptun https://github.com/kuoruan/luci-app-kcptun.git
+kcptun https://github.com/kuoruan/openwrt-kcptun.git
+miredo https://github.com/jlzsss/openwrt-miredo.git
+mwol https://github.com/Mleaf/openwrt-mwol.git
+luci-app-xray https://github.com/yichya/luci-app-xray.git
+openwrt-xray https://github.com/yichya/openwrt-xray.git
+luci-app-v2ray https://github.com/jlzsss/luci-app-v2ray.git ref=legacy
+luci-app-trojan https://github.com/frainzy1477/luci-app-trojan.git
+luci-app-clash https://github.com/frainzy1477/luci-app-clash.git ref=test
+luci-app-koolproxyR https://github.com/project-openwrt/luci-app-koolproxyR.git
 # helloworld https://github.com/fw876/helloworld.git
-# OpenClash https://github.com/vernesong/OpenClash.git ref=master
+OpenClash https://github.com/vernesong/OpenClash.git ref=master
 
-# v2ray-core https://github.com/kuoruan/openwrt-v2ray.git
-# openwrt-upx https://github.com/kuoruan/openwrt-upx.git
-# luci-theme-argon https://github.com/jerrykuku/luci-theme-argon.git ref=18.06
-# OpenAppFilter https://github.com/destan19/OpenAppFilter.git
-# luci-app-godproxy https://github.com/project-lede/luci-app-godproxy.git
-# php7 https://github.com/jlzsss/php7.git
-# libgd https://github.com/jlzsss/libgd.git
-# luci-app-dockerman https://github.com/lisaac/luci-app-dockerman.git
-# luci-app-oled https://github.com/NateLol/luci-app-oled.git
-# dnscrypt-proxy2 https://github.com/jlzsss/dnscrypt-proxy2.git
-# smartdns https://github.com/jlzsss/smartdns.git
+v2ray-core https://github.com/kuoruan/openwrt-v2ray.git
+openwrt-upx https://github.com/kuoruan/openwrt-upx.git
+luci-theme-argon https://github.com/jerrykuku/luci-theme-argon.git ref=18.06
+OpenAppFilter https://github.com/destan19/OpenAppFilter.git
+luci-app-godproxy https://github.com/project-lede/luci-app-godproxy.git
+php7 https://github.com/jlzsss/php7.git
+libgd https://github.com/jlzsss/libgd.git
+luci-app-dockerman https://github.com/lisaac/luci-app-dockerman.git
+luci-app-oled https://github.com/NateLol/luci-app-oled.git
+dnscrypt-proxy2 https://github.com/jlzsss/dnscrypt-proxy2.git
+smartdns https://github.com/jlzsss/smartdns.git
