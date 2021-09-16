@@ -23,7 +23,7 @@ compile() {
   (
     cd "${OPENWRT_CUR_DIR}"
     if [ "x${MODE}" = "xm" ]; then
-      local nthread=$(($(nproc) + 1))
+      local nthread=$(($(nproc) + 2))
       echo "${nthread} thread compile: $*"
       make -j${nthread} "$@"
     elif [ "x${MODE}" = "xs" ]; then
