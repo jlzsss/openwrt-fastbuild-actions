@@ -15,7 +15,7 @@ env:
   TMATE_ENCRYPT_PASSWORD: ${{secrets.TMATE_ENCRYPT_PASSWORD}}
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   OPT_UPDATE_FEEDS: 1
-  # OPT_REBUILD: 1
+  OPT_REBUILD: 1
 
 name: Build OpenWrt
 
@@ -23,8 +23,8 @@ on:
   deployment:
   repository_dispatch:
   workflow_dispatch:
-    env:
-      OPT_DEBUG: 1
+   env:
+     OPT_DEBUG: 1
   pull_request:
   push:
     paths:
@@ -66,11 +66,11 @@ jobs:
           # - 21.02.1
           # - 21.02.2
           # - 21.02.3
-          - 21.02.5
+          # - 21.02.5
           # - 21.02.1-ha
           # - 22.03.0
           # - 22.03.2
-          # - 22.03.3
+          - 22.03.3
           # - snapshot
         include:
         - mode: normal
