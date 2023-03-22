@@ -25,34 +25,6 @@ link_bin() {
   fi
 }
 
-link_key() {
-  local KEY_BUILD="${OPENWRT_COMPILE_DIR}/key-build"
-  local KEY_BUILD_PUB="${OPENWRT_COMPILE_DIR}/key-build.pub"
-  local KEY_BUILD_MOUNT_POINT="${BUILDER_KEY_BUILD}"
-  local KEY_BUILD_MOUNT_POINT_PUB="${BUILDER_KEY_BUILD_PUB}"
-
-  if mountpoint "${KEY_BUILD_MOUNT_POINT}" ; then
-    if [[ ! -L "${KEY_BUILD}" || "$(readlink "${KEY_BUILD}")" != "${KEY_BUILD_MOUNT_POINT}" ]]; then
-      echo "'bin' link does not exist, creating"
-      rm -rf "${KEY_BUILD}" || true
-      ln -sf "${KEY_BUILD_MOUNT_POINT}" "${KEY_BUILD}"
-    fi
-  else
-    echo "::error::'${KEY_BUILD_MOUNT_POINT}' not mounted!" >&2
-    exit 1
-  fi
-  if mountpoint "${KEY_BUILD_MOUNT_POINT_PUB}" ; then
-    if [[ ! -L "${KEY_BUILD_PUB}" || "$(readlink "${KEY_BUILD_PUB}")" != "${KEY_BUILD_MOUNT_POINT_PUB}" ]]; then
-      echo "'bin' link does not exist, creating"
-      rm -rf "${KEY_BUILD_PUB}" || true
-      ln -sf "${KEY_BUILD_MOUNT_POINT_PUB}" "${KEY_BUILD_PUB}"
-    fi
-  else
-    echo "::error::'${KEY_BUILD_MOUNT_POINT_PUB}' not mounted!" >&2
-    exit 1
-  fi
-}
-
 if [ -z "${OPENWRT_COMPILE_DIR}" ] || [ -z "${OPENWRT_CUR_DIR}" ] || [ -z "${OPENWRT_SOURCE_DIR}" ]; then
   echo "::error::'OPENWRT_COMPILE_DIR', 'OPENWRT_CUR_DIR' or 'OPENWRT_SOURCE_DIR' is empty" >&2
   exit 1
@@ -66,7 +38,6 @@ fi
 if [ "x${TEST}" = "x1" ]; then
   mkdir -p "${OPENWRT_COMPILE_DIR}" || true
   link_bin
-  link_key
   exit 0
 fi
 
@@ -80,12 +51,8 @@ if [ "x${OPENWRT_CUR_DIR}" != "x${OPENWRT_COMPILE_DIR}" ] && [ -d "${OPENWRT_COM
   git -C "${OPENWRT_CUR_DIR}" remote set-url origin "${REPO_URL}"
   git -C "${OPENWRT_CUR_DIR}" fetch
   git -C "${OPENWRT_CUR_DIR}" checkout "${REPO_BRANCH}"
-  if ! $(git -C "${OPENWRT_CUR_DIR}" tag | grep -q "${REPO_BRANCH}"); then
-    git -C "${OPENWRT_CUR_DIR}" reset --hard origin/${REPO_BRANCH}
-  fi
 else
   git clone -b "${REPO_BRANCH}" "${REPO_URL}" "${OPENWRT_CUR_DIR}"
 fi
 
 link_bin
-link_key
