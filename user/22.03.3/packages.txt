@@ -10,7 +10,7 @@
 # MKFILE_DIR is optional. You can specify the dir of Makefile, only used when RENAME is specified.
 # 'use-latest-tag' will retrieve latest release as the REF. It shouldn't be specified together with REF. Currently only github repo is supported.
 # 'override' will delete packages that are already existed.
-#
+# 
 # Examples:
 # mentohust https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk.git
 # luci-app-mentohust https://github.com/BoringCat/luci-app-mentohust.git ref=1db86057
