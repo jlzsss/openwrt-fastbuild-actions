@@ -187,12 +187,12 @@ jobs:
         TMATE_DOCKER_CONTAINER: ${{env.BUILDER_CONTAINER_ID}}
       uses: openlumi/safe-debugger-action@v1.01
 
-    # - name: Upload bin directory
-    #   uses: actions/upload-artifact@master
-    #   if: env.SKIP_TARGET == '0' && !cancelled()
-    #   with:
-    #     name: OpenWrt_bin_${{env.BUILD_TARGET}}
-    #     path: ${{env.HOST_BIN_DIR}}
+    - name: Upload bin directory
+      uses: actions/upload-artifact@master
+      if: env.SKIP_TARGET == '0' && !cancelled()
+      with:
+         name: OpenWrt_bin_${{env.BUILD_TARGET}}
+         path: ${{env.HOST_BIN_DIR}}
 
     - name: Organize files
       id: organize
@@ -213,32 +213,32 @@ jobs:
         name: OpenWrt_packages_${{env.BUILD_TARGET}}
         path: ${{env.HOST_BIN_DIR}}
 
-    - name: Checkout tools repo
-      uses: actions/checkout@v3
-      if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled() && github.ref == 'refs/heads/master'
-      with:
-        repository: jlzsss/releases
-        path: ${{ env.HOST_WORK_DIR }}/releases
-        ref: gh-pages
-        token:  ${{ secrets.GH_TOKEN }}
+#    - name: Checkout tools repo
+#      uses: actions/checkout@v3
+#      if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled() && github.ref == 'refs/heads/master'
+#      with:
+#        repository: jlzsss/releases
+#        path: ${{ env.HOST_WORK_DIR }}/releases
+#        ref: gh-pages
+#        token:  ${{ secrets.GH_TOKEN }}
 
-    - name: Copy files into Git branch
-      if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled() && github.ref == 'refs/heads/master'
-      run: |
-        mkdir -p ${{env.HOST_WORK_DIR}}/releases/${{env.BUILD_TARGET}}
-        cp -r ${{env.HOST_BIN_DIR}}/* ${{env.HOST_WORK_DIR}}/releases/${{env.BUILD_TARGET}}
-        scripts/make-index-html.sh ${{env.HOST_WORK_DIR}}/releases || true
+#    - name: Copy files into Git branch
+#      if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled() && github.ref == 'refs/heads/master'
+#      run: |
+#        mkdir -p ${{env.HOST_WORK_DIR}}/releases/${{env.BUILD_TARGET}}
+#        cp -r ${{env.HOST_BIN_DIR}}/* ${{env.HOST_WORK_DIR}}/releases/${{env.BUILD_TARGET}}
+#        scripts/make-index-html.sh ${{env.HOST_WORK_DIR}}/releases || true
 
-    - name: Commit files
-      if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled() && github.ref == 'refs/heads/master'
-      run: |
-        cd ${{ env.HOST_WORK_DIR }}/releases
-        git status
-        git add -A
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Updates files from build ${{env.BUILD_TARGET}}" -m "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" -a
-        git push
+#    - name: Commit files
+#      if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled() && github.ref == 'refs/heads/master'
+#      run: |
+#        cd ${{ env.HOST_WORK_DIR }}/releases
+#        git status
+#        git add -A
+#        git config --local user.email "action@github.com"
+#        git config --local user.name "GitHub Action"
+#        git commit -m "Updates files from build ${{env.BUILD_TARGET}}" -m "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" -a
+#        git push
 
 #    - name: Create Pull Request
 #      if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled()
