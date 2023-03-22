@@ -217,7 +217,7 @@ jobs:
       uses: actions/checkout@v3
       if: env.SKIP_TARGET == '0' && env.TEST != '1' && steps.organize.outputs.status == 'success' && !cancelled() && github.ref == 'refs/heads/master'
       with:
-        repository: openlumi/releases
+        repository: jlzsss/releases
         path: ${{ env.HOST_WORK_DIR }}/releases
         ref: gh-pages
         token:  ${{ secrets.GH_TOKEN }}
