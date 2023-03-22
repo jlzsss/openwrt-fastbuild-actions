@@ -42,11 +42,7 @@ if [ -f "${BUILDER_PROFILE_DIR}/pre_compile.sh" ]; then
 fi
 
 echo "Compiling..."
-if [ "x${OPT_ALL_PACKAGES}" == "x1" ]; then
-  export IGNORE_ERRORS=1
-  export CONFIG_ALL=y
-  compile -i
-elif [ "x${OPT_PACKAGE_ONLY}" != "x1" ]; then
+if [ "x${OPT_PACKAGE_ONLY}" != "x1" ]; then
   compile
 else
   compile "package/compile"
