@@ -38,7 +38,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     # For `github.event`'s structure, see: https://developer.github.com/v3/activity/events/types/
     # Do not modify the trigger methods here, customize them in the `on` section
     if: |
@@ -166,12 +166,12 @@ jobs:
     - name: Compile firmware and packages with multiple threads
       id: mtcompile
       if: env.SKIP_TARGET == '0'
-      continue-on-error: true
+    # continue-on-error: true
       run: scripts/cisteps/build-openwrt/11-compile_multi.sh
 
     - name: Compile firmware and packages with single threads when failed
       id: stcompile
-      if: env.SKIP_TARGET == '0' && steps.mtcompile.outputs.started == '1' && steps.mtcompile.outputs.status != 'success'
+      if: failure() && env.SKIP_TARGET == '0' && steps.mtcompile.outputs.started == '1' && steps.mtcompile.outputs.status != 'success'
       run: scripts/cisteps/build-openwrt/12-compile_single.sh
 
     - name: Print disk space
