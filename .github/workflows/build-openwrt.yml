@@ -117,11 +117,11 @@ jobs:
       if: env.SKIP_TARGET == '0'
       run: scripts/cisteps/build-openwrt/05-check_builders.sh
 
-    - name: '[Debug] Wait for SSH connection (timeout 5min)'
-      if: env.SKIP_TARGET == '0' && env.OPT_DEBUG == '1' && env.TEST != '1'
-      env:
-        TIMEOUT_MIN: 5
-      uses: openlumi/safe-debugger-action@v1.01
+    # - name: '[Debug] Wait for SSH connection (timeout 5min)'
+    #   if: env.SKIP_TARGET == '0' && env.OPT_DEBUG == '1' && env.TEST != '1'
+    #   env:
+    #     TIMEOUT_MIN: 5
+    #   uses: openlumi/safe-debugger-action@v1.01
 
     - name: 'Get key-build'
       run: 'echo "$OPENWRT_BUILD_KEY" > $HOST_WORK_DIR/key-build;echo "$OPENWRT_BUILD_KEY_PUB" > $HOST_WORK_DIR/key-build.pub'
@@ -145,11 +145,11 @@ jobs:
       run: scripts/cisteps/build-openwrt/08-customize.sh
 
     # Allow intermediate customization
-    - name: '[Debug/Menuconfig] Wait for SSH connection (timeout 30min)'
-      if: env.SKIP_TARGET == '0' && env.OPT_DEBUG == '1' && env.TEST != '1'
-      env:
-        TMATE_DOCKER_CONTAINER: ${{env.BUILDER_CONTAINER_ID}}
-      uses: openlumi/safe-debugger-action@v1.01
+    # - name: '[Debug/Menuconfig] Wait for SSH connection (timeout 30min)'
+    #   if: env.SKIP_TARGET == '0' && env.OPT_DEBUG == '1' && env.TEST != '1'
+    #   env:
+    #     TMATE_DOCKER_CONTAINER: ${{env.BUILDER_CONTAINER_ID}}
+    #   uses: openlumi/safe-debugger-action@v1.01
 
     - name: Prepare config file
       if: env.SKIP_TARGET == '0'
@@ -179,13 +179,13 @@ jobs:
       run: df -h
 
     # failure checking
-    - name: '[Failure/Debug] Wait for SSH connection (timeout 30min)'
-      if: |
-        env.SKIP_TARGET == '0' && !cancelled()
-        && (job.status == 'failure' || (env.OPT_DEBUG == '1' && env.TEST != '1'))
-      env:
-        TMATE_DOCKER_CONTAINER: ${{env.BUILDER_CONTAINER_ID}}
-      uses: openlumi/safe-debugger-action@v1.01
+    # - name: '[Failure/Debug] Wait for SSH connection (timeout 30min)'
+    #   if: |
+    #     env.SKIP_TARGET == '0' && !cancelled()
+    #     && (job.status == 'failure' || (env.OPT_DEBUG == '1' && env.TEST != '1'))
+    #   env:
+    #     TMATE_DOCKER_CONTAINER: ${{env.BUILDER_CONTAINER_ID}}
+    #   uses: openlumi/safe-debugger-action@v1.01
 
     - name: Upload bin directory
       uses: actions/upload-artifact@master
@@ -260,8 +260,8 @@ jobs:
       run: scripts/cisteps/build-openwrt/13-upload_builder.sh
 
     # failure checking
-    - name: '[Failure/Debug] wait for SSH connection (timeout 30min. You are safe to cancel the job now.)'
-      if: |
-        env.SKIP_TARGET == '0' && !cancelled()
-        && (job.status == 'failure' || (env.OPT_DEBUG == '1' && env.TEST != '1'))
-      uses: openlumi/safe-debugger-action@v1.01
+    # - name: '[Failure/Debug] wait for SSH connection (timeout 30min. You are safe to cancel the job now.)'
+    #   if: |
+    #     env.SKIP_TARGET == '0' && !cancelled()
+    #     && (job.status == 'failure' || (env.OPT_DEBUG == '1' && env.TEST != '1'))
+    #   uses: openlumi/safe-debugger-action@v1.01
